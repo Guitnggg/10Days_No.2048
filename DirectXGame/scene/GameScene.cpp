@@ -4,16 +4,44 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+	delete skydome_;
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	viewProjection_.Initialize();
+
+	//  3Dモデルの生成
+	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
+	// 天球の生成
+	skydome_ = new Skydome();
+	// 天球の初期化
+	skydome_->Initialize(modelSkydome_, &viewProjection_);
+
+	// ゲームプレイフェーズから開始
+	phase_ = Phase::kPlay;
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+
+	//  天球の更新
+	skydome_->Update();
+
+	switch (phase_)
+	{
+	case Phase::kPlay:			
+
+		break;
+	case Phase::kFinish:
+
+		break;
+	}
+}
 
 void GameScene::Draw() {
 
@@ -41,6 +69,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+	skydome_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
