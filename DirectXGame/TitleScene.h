@@ -21,7 +21,6 @@ public:
 
 	void Draw();
 
-	//デスグラグのgetter
 	bool IsFinished() const { return finished_; }
 
 private:

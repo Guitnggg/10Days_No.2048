@@ -28,17 +28,31 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+	switch (phase_) {
+	case Phase::kPlay:
 
-	//  天球の更新
-	skydome_->Update();
 
-	switch (phase_)
-	{
-	case Phase::kPlay:			
 
+
+		skydome_->Update();
+		if (Input::GetInstance()->PushKey(DIK_SPACE)) {
+			phase_ = Phase::kFinish;
+			finishTimer_ = 0.0f; // フェーズが切り替わったらタイマーをリセット
+		}
 		break;
+
 	case Phase::kFinish:
 
+
+
+
+		skydome_->Update();
+		finishTimer_ += 1.0f / 60.0f; // 時間経過を記録
+
+		// 2秒後に終了フラグを立てる（3秒間スカイドームを表示）
+		if (finishTimer_ >= 3.0f) {
+			finished_ = true; // 終了フラグを立てる
+		}
 		break;
 	}
 }

@@ -29,13 +29,14 @@ void EndScene::Update()
 	endWorldTransform_.UpdateMatrix();
 }
 
-void EndScene::Draw()
-{
+void EndScene::Draw() {
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
 	Model::PreDraw(commandList);
 
-	endmodel_->Draw(endWorldTransform_, viewProjection_);
+	if (endmodel_) {  // endmodel_がnullptrでないか確認
+		endmodel_->Draw(endWorldTransform_, viewProjection_);
+	}
 
 	Model::PostDraw();
 }

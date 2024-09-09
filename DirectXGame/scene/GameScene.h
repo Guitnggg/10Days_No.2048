@@ -70,6 +70,7 @@ private: // メンバ変数
 
 	//終了フラグ
 	bool finished_ = false;
+	float finishTimer_ = 0.0f; // フェーズ終了用タイマー
 
 
 	/// <summary>
