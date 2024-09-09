@@ -10,7 +10,7 @@ public:
 	FireSphere fireSphere6_;
 
 public:
-	void FireBar();
+	void Update();
 	void Draw();
 
 private:
