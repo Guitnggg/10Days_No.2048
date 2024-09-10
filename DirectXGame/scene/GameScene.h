@@ -8,6 +8,9 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include "DebugCamera.h"
+#include "MapChipField.h"
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -43,6 +46,23 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+
+	ViewProjection viewProjection_;
+
+	// 3Dモデルデータ
+	Model* model_ = nullptr;
+	Model* modelBlock_ = nullptr;
+
+	// 縦横ブロック配列
+	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
+
+	MapChipField* mapChipField_;
+
+	// デバックカメラ有効
+	bool isDebugCameraActive_ = false;
+
+	// デバックカメラ
+	DebugCamera* debugCamera_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用
