@@ -9,8 +9,12 @@ public:
 	FireSphere fireSphere5_;
 	FireSphere fireSphere6_;
 
+	int isAlive_;
+
+
 public:
 	void Update();
+	void Move();
 	void Draw();
 
 private:

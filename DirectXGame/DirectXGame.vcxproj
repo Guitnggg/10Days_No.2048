@@ -112,6 +112,7 @@
     <ClCompile Include="fireBar.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
+    <ClCompile Include="trap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\ImGuiManager.h" />
@@ -145,6 +146,7 @@
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="scene\GameScene.h" />
     <ClInclude Include="struct.h" />
+    <ClInclude Include="trap.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
