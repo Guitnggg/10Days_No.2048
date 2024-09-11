@@ -1,16 +1,19 @@
 ﻿
 #pragma once
+#include "MapChipField.h"
 
 #include "Model.h"
 #include "Vector3.h"
 #include "aabb.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include <vector>
 
 /// <summary>
 /// 敵
 /// </summary>
 class Player;
+
 class Enemy {
 public:
 	Enemy();
@@ -27,7 +30,7 @@ public:
 
 	// ワールド座標を取得
 	Vector3 GetWorldPosition();
-
+	
 	//AABB取得関数
 	AABB GetAABB();
 
