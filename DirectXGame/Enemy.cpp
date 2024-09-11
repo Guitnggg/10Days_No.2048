@@ -1,6 +1,6 @@
 
 #include "Enemy.h"
-#include "mymath.h"
+#include "myMath.h"
 #include <numbers>
 
 Enemy::Enemy() {}
@@ -14,7 +14,7 @@ void Enemy::Initialize(Model* model, ViewProjection* viewProjection, const Vecto
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> / -2.0f;
-	velocity_ = { -kWalkSpeed, 0, 0 };
+	velocity_ = {-kWalkSpeed, 0, 0};
 	walkTimer_ = 0.0f;
 }
 

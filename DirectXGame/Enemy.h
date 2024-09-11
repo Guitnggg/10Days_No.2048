@@ -1,7 +1,6 @@
-﻿
+
 #pragma once
 #include "MapChipField.h"
-
 #include "Model.h"
 #include "Vector3.h"
 #include "aabb.h"
