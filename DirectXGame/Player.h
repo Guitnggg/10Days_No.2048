@@ -97,7 +97,7 @@ public:
 private:
 	static inline const float kAcceleration = 0.01f;
 	static inline const float kAttenuation = 0.5f;
-	static inline const float kLimitRunSpeed = 1.2f;
+	static inline const float kLimitRunSpeed = 1.0f;
 	// 旋回時間<秒>
 	static inline const float kTimeTurn = 0.3f;
 	// 重力加速度(下方向)
