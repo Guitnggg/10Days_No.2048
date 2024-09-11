@@ -82,6 +82,7 @@ void GameScene::Initialize() {
 
 	// ゲームプレイフェーズから開始
 	phase_ = Phase::kPlay;
+
 	/*
 	CameraController::Rect cameraArea = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
 	cameraController_->SetMovableArea(cameraArea);
