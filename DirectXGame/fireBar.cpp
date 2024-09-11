@@ -12,7 +12,7 @@ void fireBar::Update()
 	//
 
 	
-	if (isAlive_ == true) {
+	if (isAlive_) {
 		Draw();
 	}
 }
@@ -24,7 +24,7 @@ void fireBar::Move()
 	//線形補間で
 	Timer();
 
-	if (isAlive_==true) {
+	if (isAlive_) {
 		//float angle = fireSphere1_.speedX *;
 		//fireSphere1_.posX = fireSphere1_.posX * angle;
 

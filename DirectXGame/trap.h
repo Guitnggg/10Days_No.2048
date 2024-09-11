@@ -12,5 +12,9 @@ public:
 	void Timer();
 	void Move();
 
-	int isCollision_;
+	int coolTime_;
+	int lostTime_;
+	bool isCollision_;
+	bool isCoolTime_;
+	bool isLostTime_;
 };
