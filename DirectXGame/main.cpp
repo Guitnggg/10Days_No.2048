@@ -8,11 +8,13 @@
 #include "WinApp.h"
 #include "TitleScene.h"
 #include "EndScene.h"
+#include "DescriptionScene.h"
 
 //シーン(型)
 enum class Scene {
 	kUnknown = 0,
 	kTitle,
+	kDescription,
 	kGame,
 	kEnd
 };
@@ -22,18 +24,34 @@ Scene scene = Scene::kUnknown;
 
 GameScene* gameScene = nullptr;
 TitleScene* titleScene = nullptr;
+DescriptionScene* descriptionScene = nullptr;
 EndScene* endScene = nullptr;
 
 //シーン切り替え
-void ChangeScene() {
-	switch (scene) {
+void ChangeScene() 
+{
+	switch (scene) 
+	{
 	case Scene::kTitle:
 		if (titleScene->IsFinished()) {
 			//シーン変更
-			scene = Scene::kGame;
+			scene = Scene::kDescription;
 			//旧シーンの解放
 			delete titleScene;
 			titleScene = nullptr;
+			//新シーンの生成と初期化
+			descriptionScene = new DescriptionScene;
+			descriptionScene->Initialize();
+		}
+		break;
+
+	case Scene::kDescription:
+		if (descriptionScene->IsFinished()) {
+			//シーン変更
+			scene = Scene::kGame;
+			//旧シーンの解放
+			delete descriptionScene;
+			descriptionScene = nullptr;
 			//新シーンの生成と初期化
 			gameScene = new GameScene;
 			gameScene->Initialize();
@@ -68,24 +86,46 @@ void ChangeScene() {
 	}
 }
 //シーンの更新
-void UpdateScene() {
-	switch (scene) {
+void UpdateScene() 
+{
+	switch (scene)
+	{
 	case Scene::kTitle:
 		titleScene->Update();
 		break;
+
+	case Scene::kDescription:
+		descriptionScene->Update();
+		break;
+
 	case Scene::kGame:
 		gameScene->Update();
+		break;
+
+	case Scene::kEnd:
+		endScene->Update();
 		break;
 	}
 }
 //シーンの描画
-void DrawScene() {
-	switch (scene) {
+void DrawScene() 
+{
+	switch (scene)
+	{
 	case Scene::kTitle:
 		titleScene->Draw();
 		break;
+
+	case Scene::kDescription:
+		descriptionScene->Draw();
+		break;
+
 	case Scene::kGame:
 		gameScene->Draw();
+		break;
+
+	case Scene::kEnd:
+		endScene->Draw();
 		break;
 	}
 }
