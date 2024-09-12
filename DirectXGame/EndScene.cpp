@@ -10,7 +10,7 @@ EndScene::~EndScene() { delete endmodel_; }
 void EndScene::Initialize()
 {
 	dxCommon_ = DirectXCommon::GetInstance();
-	endmodel_ = Model::CreateFromOBJ("title", true);
+	endmodel_ = Model::CreateFromOBJ("end", true);
 	endWorldTransform_.Initialize();
 	viewProjection_.Initialize();
 	Timer_ = 0.0f;

@@ -9,12 +9,14 @@
 #include "TitleScene.h"
 #include "EndScene.h"
 #include "DescriptionScene.h"
+#include "HowToScene.h"
 
 //シーン(型)
 enum class Scene {
 	kUnknown = 0,
 	kTitle,
 	kDescription,
+	kHowTo,
 	kGame,
 	kEnd
 };
@@ -25,6 +27,7 @@ Scene scene = Scene::kUnknown;
 GameScene* gameScene = nullptr;
 TitleScene* titleScene = nullptr;
 DescriptionScene* descriptionScene = nullptr;
+HowToScene* howToScene = nullptr;
 EndScene* endScene = nullptr;
 
 //シーン切り替え
@@ -48,10 +51,23 @@ void ChangeScene()
 	case Scene::kDescription:
 		if (descriptionScene->IsFinished()) {
 			//シーン変更
-			scene = Scene::kGame;
+			scene = Scene::kHowTo;
 			//旧シーンの解放
 			delete descriptionScene;
 			descriptionScene = nullptr;
+			//新シーンの生成と初期化
+			howToScene = new HowToScene;
+			howToScene->Initialize();
+		}
+		break;
+
+	case Scene::kHowTo:
+		if (howToScene->IsFinished()) {
+			//シーン変更
+			scene = Scene::kGame;
+			//旧シーンの解放
+			delete howToScene;
+			howToScene = nullptr;
 			//新シーンの生成と初期化
 			gameScene = new GameScene;
 			gameScene->Initialize();
@@ -98,6 +114,10 @@ void UpdateScene()
 		descriptionScene->Update();
 		break;
 
+	case Scene::kHowTo:
+		howToScene->Update();
+		break;
+
 	case Scene::kGame:
 		gameScene->Update();
 		break;
@@ -118,6 +138,10 @@ void DrawScene()
 
 	case Scene::kDescription:
 		descriptionScene->Draw();
+		break;
+
+	case Scene::kHowTo:
+		howToScene->Draw();
 		break;
 
 	case Scene::kGame:
@@ -220,11 +244,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// 各種解放
 	delete titleScene;
+	delete descriptionScene;
+	delete howToScene;
 	delete gameScene;
 	delete endScene;
+
 	// 3Dモデル解放
 	Model::StaticInitialize();
 	audio->Finalize();
+	
 	// ImGui解放
 	imguiManager->Finalize();
 
