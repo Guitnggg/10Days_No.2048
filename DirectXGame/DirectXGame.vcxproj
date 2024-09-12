@@ -112,8 +112,10 @@
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="DeathParticles.cpp" />
+    <ClCompile Include="DescriptionScene.cpp" />
     <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="HowToScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapChipField.cpp" />
     <ClCompile Include="myMath.cpp" />
@@ -150,8 +152,10 @@
     <ClInclude Include="base\WinApp.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="DeathParticles.h" />
+    <ClInclude Include="DescriptionScene.h" />
     <ClInclude Include="EndScene.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="HowToScene.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="MapChipField.h" />
     <ClInclude Include="math\Matrix4x4.h" />
