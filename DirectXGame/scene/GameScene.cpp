@@ -53,7 +53,7 @@ void GameScene::Initialize() {
 	// 敵モデル
 	modelEnemy_ = Model::CreateFromOBJ("enemy", true);
 	// 敵の生成
-	for (int32_t i = 0; i < 18; ++i) {
+	for (int32_t i = 0; i < 22; ++i) {
 		Enemy* newEnemy = new Enemy();
 		// ランダムにX, Y座標を設定（例: 0～20の範囲でランダム）
 		int randomX = rand() % 18 + 3;
@@ -124,7 +124,17 @@ void GameScene::Update() {
 		}
 		// カメラコントローラの更新
 		cameraController_->Update();
-		// カメラの処理
+
+		// ゴールに接触したかチェック
+		CheckAllCollisions();
+		CheckAllCollisions2();  // ここでゴールとの接触を確認
+
+		// プレイヤーがゴールに接触したらゲーム終了
+		if (phase_ == Phase::kClear) {
+			cleared_ = true;
+		}
+
+		// ビュープロジェクション行列の更新と転送
 		if (isDebugCameraActive_) {
 			debugCamera_->Update();
 			viewProjection_.matView = debugCamera_->GetViewProjection().matView;
@@ -133,46 +143,37 @@ void GameScene::Update() {
 			viewProjection_.TransferMatrix();
 		}
 		else {
-			// ビュープロジェクション行列の更新と転送
 			viewProjection_.UpdateMatrix();
 		}
+
 		// ブロックの更新
 		for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 			for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
 				if (!worldTransformBlock)
 					continue;
-				// アフィン変換行列の作成
 				worldTransformBlock->UpdateMatrix();
 			}
 		}
 		goal_->Update();
-		// 全ての当たり判定
-		CheckAllCollisions();
-		CheckAllCollisions2();
 		break;
 
 	case Phase::kDeath:
-		//デス演出フェーズの処理
-		//   天球の更新
+		// デス演出フェーズの処理
 		skydome_->Update();
-		// 敵の更新
 		for (Enemy* enemy : enemies_) {
 			enemy->Update();
 		}
-		// パーティクルの更新
 		if (deathParticles_) {
 			deathParticles_->Update();
 		}
-		// カメラの処理
+		// ビュープロジェクション行列の更新
 		if (isDebugCameraActive_) {
 			debugCamera_->Update();
 			viewProjection_.matView = debugCamera_->GetViewProjection().matView;
 			viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-			// ビュープロジェクション行列の転送
 			viewProjection_.TransferMatrix();
 		}
 		else {
-			// ビュープロジェクション行列の更新と転送
 			viewProjection_.UpdateMatrix();
 		}
 		// ブロックの更新
@@ -180,11 +181,9 @@ void GameScene::Update() {
 			for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
 				if (!worldTransformBlock)
 					continue;
-				// アフィン変換行列の作成
 				worldTransformBlock->UpdateMatrix();
 			}
 		}
-
 		break;
 	}
 }
@@ -321,6 +320,9 @@ void GameScene::CheckAllCollisions2() {
 		player_->OnCollision2(goal_);
 		// 敵キャラの衝突時のコールバックを呼び出す
 		goal_->OnCollision(player_);
+
+		// フェーズをクリアに変更
+		phase_ = Phase::kClear;
 	}
 
 #pragma endregion
@@ -343,6 +345,12 @@ void GameScene::ChangePhase() {
 		// デス演出フェーズの処理
 		if (deathParticles_ && deathParticles_->IsFinished()) {
 			finished_ = true;
+		}
+		break;
+
+	case Phase::kClear:
+		if (phase_ == Phase::kClear) {
+			cleared_ = true;
 		}
 		break;
 	}

@@ -25,6 +25,7 @@
 enum class Phase {
 	kPlay,//ゲームプレイ
 	kDeath,//デス演出
+	kClear
 };
 
 class GameScene {
@@ -66,6 +67,7 @@ public: // メンバ関数
 
 	//デスフラグのgetter
 	bool IsFinished() const { return finished_; }
+	bool IsCleared()const { return cleared_; }
 
 private:
 	// メンバ変数
@@ -110,6 +112,7 @@ private:
 
 	//終了フラグ
 	bool finished_ = false;
+	bool cleared_ = false;
 
 	/// <summary>
 	/// ゲームシーン用

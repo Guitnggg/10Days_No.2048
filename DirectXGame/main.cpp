@@ -79,27 +79,33 @@ void ChangeScene()
 
 	case Scene::kGame:
 		if (gameScene->IsFinished()) {
-			//シーン変更
-			scene = Scene::kClear;
-			//旧シーンの解放
+			// ゲームオーバーへ
 			delete gameScene;
 			gameScene = nullptr;
-			//新シーンの生成と初期化
-			endScene = new EndScene;
+			gameOverScene = new GameOverScene();
+			gameOverScene->Initialize();
+			scene = Scene::kGameOver;
+		}
+		else if (gameScene->IsCleared()) {
+			// ゲームクリアへ
+			delete gameScene;
+			gameScene = nullptr;
+			endScene = new EndScene();
 			endScene->Initialize();
+			scene = Scene::kClear;
 		}
 		break;
 
 	case Scene::kGameOver:
 		if (gameOverScene->IsFinished()) {
 			//旧シーン変更
-			scene = Scene::kTitle;
+			scene = Scene::kGame;
 			//旧シーンの解放
 			delete gameOverScene;
 			gameOverScene = nullptr;
 			//新シーンの生成と初期化
-			titleScene = new TitleScene;
-			titleScene->Initialize();
+			gameScene = new GameScene;
+			gameScene->Initialize();
 		}
 		break;
 
@@ -141,6 +147,10 @@ void UpdateScene()
 	case Scene::kClear:
 		endScene->Update();
 		break;
+
+	case Scene::kGameOver:
+		gameOverScene->Update();
+		break;
 	}
 }
 //シーンの描画
@@ -166,6 +176,10 @@ void DrawScene()
 
 	case Scene::kClear:
 		endScene->Draw();
+		break;
+
+	case Scene::kGameOver:
+		gameOverScene->Draw();
 		break;
 	}
 }
