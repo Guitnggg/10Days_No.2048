@@ -1,6 +1,6 @@
 #pragma once
 #include"Vector3.h"
-
+class Player;
 class trap
 {
 private:
@@ -11,6 +11,7 @@ public:
 	void Draw();
 	void Timer();
 	void Move();
+	Player* player_;
 
 	int coolTime_;
 	int lostTime_;

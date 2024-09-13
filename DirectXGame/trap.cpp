@@ -24,6 +24,7 @@ void trap::Draw()
 
 }
 
+//作動時の処理
 void trap::Timer()
 {
 	lostTime_ = 168;
