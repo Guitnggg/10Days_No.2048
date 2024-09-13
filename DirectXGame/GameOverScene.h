@@ -4,6 +4,7 @@
 #include "WorldTransform.h"
 #include "DirectXCommon.h"
 #include "Input.h"
+#include "Skydome.h"
 
 /// <summary>
 /// ゲームオーバーシーン
@@ -32,5 +33,9 @@ private:
 	WorldTransform gameOverWorldTransform_;
 	ViewProjection viewProjection_;
 	Model* gameOvermodel_ = nullptr;
+
+	// 天球
+	Skydome* skydome_ = nullptr;
+	Model* modelSkydome_ = nullptr;
 };
 

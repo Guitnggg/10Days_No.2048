@@ -10,6 +10,13 @@ void GameOverScene::Initialize()
 	gameOvermodel_ = Model::CreateFromOBJ("gameOver", true);
 	gameOverWorldTransform_.Initialize();
 	viewProjection_.Initialize();
+
+	//  3Dモデルの生成
+	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
+	// 天球の生成
+	skydome_ = new Skydome();
+	// 天球の初期化
+	skydome_->Initialize(modelSkydome_, &viewProjection_);
 }
 
 void GameOverScene::Update()
@@ -18,6 +25,8 @@ void GameOverScene::Update()
 	{
 		finished_ = true;
 	}
+
+	skydome_->Update();
 }
 
 void GameOverScene::Draw()
@@ -25,6 +34,8 @@ void GameOverScene::Draw()
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
 	Model::PreDraw(commandList);
+
+	skydome_->Draw();
 
 	gameOvermodel_->Draw(gameOverWorldTransform_, viewProjection_);
 
