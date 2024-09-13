@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <cassert>
 #include <numbers>
+#include"spiderTrap.h"
+
 /// <summary>
 /// 自キャラ
 /// </summary>
@@ -82,6 +84,7 @@ public:
 
 	//衝突応答
 	void OnCollision(const Enemy* enemy);
+	void OnCollision(const spiderTrap* trap);
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
 
@@ -93,6 +96,7 @@ public:
 
 	// デスフラグのgetter
 	bool IsDead() const { return isDead_; }
+	bool IsSlow() const { return isSlow_; }
 
 private:
 	static inline const float kAcceleration = 0.01f;
@@ -130,6 +134,8 @@ private:
 	bool landing = false;
 	//デスフラグ
 	bool isDead_ = false;
+	//
+	bool isSlow_ = false;
 	// ワールド変換データ
 	WorldTransform worldTransform_;
 	// モデル

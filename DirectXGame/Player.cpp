@@ -424,6 +424,13 @@ void Player::OnGround(const CollisionMapInfo& info) {
 	}
 }
 
+//ギミック衝突判定
+void Player::OnCollision(const spiderTrap* trap) {
+	(void)trap;
+	isSlow_ = true;
+}
+
+
 //衝突応答
 void Player::OnCollision(const Enemy* enemy) {
 	(void)enemy;
