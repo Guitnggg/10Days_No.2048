@@ -116,6 +116,7 @@
     <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="HowToScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapChipField.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="EndScene.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameOverScene.h" />
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="HowToScene.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="MapChipField.h" />

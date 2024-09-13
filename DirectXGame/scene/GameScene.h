@@ -16,6 +16,7 @@
 #include "MapChipField.h"
 #include "CameraController.h"
 #include "DeathParticles.h"
+#include"Goal.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -58,6 +59,7 @@ public: // メンバ関数
 
 	//全ての当たり判定を行う
 	void CheckAllCollisions();
+	void CheckAllCollisions2();
 
 	//フェーズの切り替え
 	void ChangePhase();
@@ -97,6 +99,11 @@ private:
 	//カメラコントローラ
 	CameraController* cameraController_ = nullptr;
 	CameraController::Rect movableArea = { 0, 100, 0, 100 };
+
+	//ゴール
+	Model* modelGoal_ = nullptr;
+	Goal* goal_ = nullptr;
+
 
 	//ゲームの現在フェーズ(変数)
 	Phase phase_;

@@ -24,6 +24,7 @@ GameScene::~GameScene() {
 	delete deathParticles_;
 	delete modelSkydome_;
 	delete player_;
+	delete goal_;
 	delete skydome_;
 	delete mapChipField_;
 	delete cameraController_;
@@ -58,7 +59,11 @@ void GameScene::Initialize() {
 		newEnemy->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
 		enemies_.push_back(newEnemy);
 	}
-
+	modelGoal_ = Model::CreateFromOBJ("goal", true);
+	goal_ = new Goal();
+	Vector3 goalPosition = mapChipField_->GetMapChipPositionByIndex(4, 191);
+	// Goalの初期化
+	goal_->Initialize(modelGoal_, &viewProjection_, goalPosition);
 	// パーティクルモデル
 	modelParticles_ = Model::CreateFromOBJ("deathParticle", true);
 	// 仮の生成
@@ -84,8 +89,8 @@ void GameScene::Initialize() {
 	phase_ = Phase::kPlay;
 
 	
-	//CameraController::Rect cameraArea = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
-	//cameraController_->SetMovableArea(cameraArea);
+	CameraController::Rect cameraArea = {0.0f, 100.0f, 0.0f, 200.0f};
+	cameraController_->SetMovableArea(cameraArea);
 	
 }
 
@@ -138,8 +143,10 @@ void GameScene::Update() {
 				worldTransformBlock->UpdateMatrix();
 			}
 		}
+		goal_->Update();
 		// 全ての当たり判定
 		CheckAllCollisions();
+		CheckAllCollisions2();
 		break;
 
 	case Phase::kDeath:
@@ -210,6 +217,7 @@ void GameScene::Draw() {
 	switch (phase_) {
 	case Phase::kPlay:// 自キャラの描画
 		player_->Draw();
+		goal_->Draw();
 		break;
 	case Phase::kDeath:
 		break;
@@ -294,6 +302,25 @@ void GameScene::CheckAllCollisions() {
 			enemy->OnCollision(player_);
 		}
 	}
+#pragma endregion
+}
+void GameScene::CheckAllCollisions2() {
+#pragma region 自キャラと敵の当たり判定
+	// 判定対象1と2の座標
+	AABB aabb1, aabb2;
+	// 自キャラの座標
+	aabb1 = player_->GetAABB();
+	// 自キャラと敵すべての当たり判定
+
+	aabb2 = goal_->GetAABB();
+	// AABB同士の交差判定
+	if (AABB::IsCollision(aabb1, aabb2)) {
+		// 自キャラの衝突時のコールバックを呼び出す
+		player_->OnCollision2(goal_);
+		// 敵キャラの衝突時のコールバックを呼び出す
+		goal_->OnCollision(player_);
+	}
+
 #pragma endregion
 }
 
