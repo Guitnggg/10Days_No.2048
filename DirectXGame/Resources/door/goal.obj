@@ -1,6 +1,6 @@
 # Blender 4.2.1 LTS
 # www.blender.org
-mtllib door.mtl
+mtllib goal.mtl
 o 立方体
 v -0.458008 -1.270719 0.770634
 v -0.458008 -1.270719 -0.770634
