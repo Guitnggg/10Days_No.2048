@@ -27,7 +27,7 @@ void trap::Draw()
 void trap::Timer()
 {
 	lostTime_ = 168;
-	if (isLostTime_) {
+	if (isLostTime_==true) {
 		lostTime_ -= 1;
 
 		if (lostTime_ <= 0) {
@@ -35,7 +35,7 @@ void trap::Timer()
 			coolTime_ = 60;
 			isCoolTime_ = true;
 
-			if (isCoolTime_) {
+			if (isCoolTime_==true) {
 				isLostTime_ = false;
 				coolTime_ -= 1;
 
@@ -52,4 +52,9 @@ void trap::Timer()
 
 void trap::Move()
 {
+
+	if (isCoolTime_ == true) {
+		
+	}
+
 }
