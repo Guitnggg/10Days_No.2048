@@ -52,9 +52,9 @@ void GameScene::Initialize() {
 	// 敵モデル
 	modelEnemy_ = Model::CreateFromOBJ("enemy", true);
 	// 敵の生成
-	for (int32_t i = 0; i < 1; ++i) {
+	for (int32_t i = 0; i < 5; ++i) {
 		Enemy* newEnemy = new Enemy();
-		Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(5, 191);
+		Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(10, 179);
 		newEnemy->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
 		enemies_.push_back(newEnemy);
 	}
