@@ -7,7 +7,7 @@ GameOverScene::~GameOverScene() { delete gameOvermodel_; }
 void GameOverScene::Initialize()
 {
 	dxCommon_ = DirectXCommon::GetInstance();
-	gameOvermodel_ = Model::CreateFromOBJ("title", true);
+	gameOvermodel_ = Model::CreateFromOBJ("gameOver", true);
 	gameOverWorldTransform_.Initialize();
 	viewProjection_.Initialize();
 }
