@@ -3,7 +3,10 @@
 
 TitleScene::TitleScene() {}
 
-TitleScene::~TitleScene() { delete titlemodel_; }
+TitleScene::~TitleScene() { 
+	delete titlemodel_;
+	delete modelSkydome_;
+}
 
 void TitleScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
@@ -11,9 +14,19 @@ void TitleScene::Initialize() {
 	titleWorldTransform_.Initialize();
 	viewProjection_.Initialize();
 	Timer_ = 0.0f;
+
+	//  3Dモデルの生成
+	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
+	// 天球の生成
+	skydome_ = new Skydome();
+	// 天球の初期化
+	skydome_->Initialize(modelSkydome_, &viewProjection_);
 }
 
 void TitleScene::Update() {
+	//  天球の更新
+	skydome_->Update();
+
 	if (Input::GetInstance()->TriggerKey(DIK_SPACE)) {
 		finished_ = true;
 	}
@@ -31,6 +44,9 @@ void TitleScene::Draw() {
 	Model::PreDraw(commandList);
 
 	titlemodel_->Draw(titleWorldTransform_, viewProjection_);
+
+	// 天球の描画
+	skydome_->Draw();
 
 	Model::PostDraw();
 }
