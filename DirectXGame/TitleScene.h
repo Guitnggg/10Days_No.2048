@@ -6,8 +6,9 @@
 #include "Input.h"
 
 /// <summary>
-/// 
+/// タイトルシーン
 /// </summary>
+
 class TitleScene {
 public:
 	TitleScene();

@@ -16,7 +16,7 @@ void DescriptionScene::Initialize()
 
 void DescriptionScene::Update()
 {
-	if (Input::GetInstance()->PushKey(DIK_1))
+	if (Input::GetInstance()->TriggerKey(DIK_SPACE))
 	{
 		finished_ = true;
 	}
