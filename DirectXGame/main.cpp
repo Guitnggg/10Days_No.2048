@@ -10,6 +10,7 @@
 #include "EndScene.h"
 #include "DescriptionScene.h"
 #include "HowToScene.h"
+#include "GameOverScene.h"
 
 //シーン(型)
 enum class Scene {
@@ -18,7 +19,8 @@ enum class Scene {
 	kDescription,
 	kHowTo,
 	kGame,
-	kEnd
+	kGameOver,
+	kClear
 };
 
 //現在シーン(型)
@@ -29,6 +31,7 @@ TitleScene* titleScene = nullptr;
 DescriptionScene* descriptionScene = nullptr;
 HowToScene* howToScene = nullptr;
 EndScene* endScene = nullptr;
+GameOverScene* gameOverScene = nullptr;
 
 //シーン切り替え
 void ChangeScene() 
@@ -77,7 +80,7 @@ void ChangeScene()
 	case Scene::kGame:
 		if (gameScene->IsFinished()) {
 			//シーン変更
-			scene = Scene::kEnd;
+			scene = Scene::kClear;
 			//旧シーンの解放
 			delete gameScene;
 			gameScene = nullptr;
@@ -87,14 +90,27 @@ void ChangeScene()
 		}
 		break;
 
-	case Scene::kEnd:
+	case Scene::kGameOver:
+		if (gameOverScene->IsFinished()) {
+			//旧シーン変更
+			scene = Scene::kTitle;
+			//旧シーンの解放
+			delete gameOverScene;
+			gameOverScene = nullptr;
+			//新シーンの生成と初期化
+			titleScene = new TitleScene;
+			titleScene->Initialize();
+		}
+		break;
+
+	case Scene::kClear:
 		if (endScene->IsFinished()) {
 			//旧シーン変更
 			scene = Scene::kTitle;
-			//
+			//旧シーンの解放
 			delete endScene;
 			endScene = nullptr;
-			//
+			//新シーンの生成と初期化
 			titleScene = new TitleScene;
 			titleScene->Initialize();
 		}
@@ -122,7 +138,7 @@ void UpdateScene()
 		gameScene->Update();
 		break;
 
-	case Scene::kEnd:
+	case Scene::kClear:
 		endScene->Update();
 		break;
 	}
@@ -148,7 +164,7 @@ void DrawScene()
 		gameScene->Draw();
 		break;
 
-	case Scene::kEnd:
+	case Scene::kClear:
 		endScene->Draw();
 		break;
 	}
