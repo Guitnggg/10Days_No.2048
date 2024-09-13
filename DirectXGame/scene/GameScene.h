@@ -16,6 +16,7 @@
 #include "MapChipField.h"
 #include "CameraController.h"
 #include "DeathParticles.h"
+#include "Goal.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -91,6 +92,10 @@ private:
 	//パーティクル
 	DeathParticles* deathParticles_ = nullptr;
 	Model* modelParticles_ = nullptr;
+
+	//ゴール
+	Goal* goal_ = nullptr;
+	Model* modelGoal_ = nullptr;
 
 	//マップチップフィールド
 	MapChipField* mapChipField_;

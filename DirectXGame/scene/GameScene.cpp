@@ -27,6 +27,7 @@ GameScene::~GameScene() {
 	delete skydome_;
 	delete mapChipField_;
 	delete cameraController_;
+	delete modelGoal_;
 }
 
 void GameScene::Initialize() {
@@ -52,7 +53,7 @@ void GameScene::Initialize() {
 	// 敵モデル
 	modelEnemy_ = Model::CreateFromOBJ("enemy", true);
 	// 敵の生成
-	for (int32_t i = 0; i < 5; ++i) {
+	for (int32_t i = 0; i < 1; ++i) {
 		Enemy* newEnemy = new Enemy();
 		Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(10, 179);
 		newEnemy->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
@@ -64,6 +65,15 @@ void GameScene::Initialize() {
 	// 仮の生成
 	deathParticles_ = new DeathParticles;
 	deathParticles_->Initialize(modelParticles_, &viewProjection_, playerPosition);
+
+	//// ゴールモデル
+	//goal_ = new Goal();
+	//modelGoal_ = Model::CreateFromOBJ("goal", true);
+	//
+	//// ゴールの初期化
+	//Vector3 goalPosition = mapChipField_->GetMapChipPositionByIndex(15, 20); // ゴール位置の設定
+	//goal_->Initialize(modelGoal_, &viewProjection_, goalPosition);
+	
 
 	//  3Dモデルの生成
 	modelSkydome_ = Model::CreateFromOBJ("sphere", true);
@@ -83,10 +93,10 @@ void GameScene::Initialize() {
 	// ゲームプレイフェーズから開始
 	phase_ = Phase::kPlay;
 
-	/*
-	CameraController::Rect cameraArea = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
+	
+	CameraController::Rect cameraArea = {0, 100 , 0, 200};
 	cameraController_->SetMovableArea(cameraArea);
-	*/
+	
 }
 
 void GameScene::Update() {
@@ -115,6 +125,8 @@ void GameScene::Update() {
 		for (Enemy* enemy : enemies_) {
 			enemy->Update();
 		}
+		//// ゴールの更新
+		//goal_->Update();
 		// カメラコントローラの更新
 		cameraController_->Update();
 		// カメラの処理
@@ -233,6 +245,9 @@ void GameScene::Draw() {
 	if (deathParticles_) {
 		deathParticles_->Draw();
 	}
+
+	//// ゴールの描画
+	//goal_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
