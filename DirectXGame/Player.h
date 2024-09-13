@@ -14,6 +14,7 @@
 /// </summary>
 class MapChipField;
 class Enemy;
+class Goal;
 // 左右
 enum class LRDirection {
 	kRight,
@@ -82,6 +83,7 @@ public:
 
 	//衝突応答
 	void OnCollision(const Enemy* enemy);
+	void OnCollision2(const Goal* goal);
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
 
