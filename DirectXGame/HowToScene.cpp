@@ -3,7 +3,10 @@
 
 HowToScene::HowToScene(){}
 
-HowToScene::~HowToScene() { delete howTomodel_; }
+HowToScene::~HowToScene() { 
+	delete howTomodel_;
+	delete titleskydome_;
+}
 
 void HowToScene::Initialize()
 {
@@ -11,6 +14,10 @@ void HowToScene::Initialize()
 	howTomodel_ = Model::CreateFromOBJ("howTo", true);
 	howToWorldTransform_.Initialize();
 	viewProjection_.Initialize();
+
+	modeltitleSkydome_ = Model::CreateFromOBJ("titlesphere", true);
+	titleskydome_ = new TitleSkydome;
+	titleskydome_->Initialize(modeltitleSkydome_, &viewProjection_);
 }
 
 void HowToScene::Update()
@@ -19,6 +26,8 @@ void HowToScene::Update()
 	{
 		finished_ = true;
 	}
+
+	titleskydome_->Update();
 }
 
 void HowToScene::Draw()
@@ -26,6 +35,8 @@ void HowToScene::Draw()
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
 	Model::PreDraw(commandList);
+
+	titleskydome_->Draw();
 
 	howTomodel_->Draw(howToWorldTransform_, viewProjection_);
 

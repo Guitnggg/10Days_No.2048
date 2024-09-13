@@ -4,6 +4,7 @@
 #include "WorldTransform.h"
 #include "DirectXCommon.h"
 #include "Input.h"
+#include "TitleSkydome.h"
 
 /// <summary>
 /// 操作方法説明シーン
@@ -36,5 +37,8 @@ private:
 
 	Model* howTomodel_ = nullptr;
 
+	//天球
+	TitleSkydome* titleskydome_ = nullptr;
+	Model* modeltitleSkydome_ = nullptr;
 };
 

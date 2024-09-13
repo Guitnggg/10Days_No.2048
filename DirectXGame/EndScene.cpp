@@ -14,6 +14,10 @@ void EndScene::Initialize()
 	endWorldTransform_.Initialize();
 	viewProjection_.Initialize();
 	Timer_ = 0.0f;
+
+	modeltitleSkydome_ = Model::CreateFromOBJ("titlesphere", true);
+	titleskydome_ = new TitleSkydome;
+	titleskydome_->Initialize(modeltitleSkydome_, &viewProjection_);
 }
 
 void EndScene::Update()
@@ -27,12 +31,16 @@ void EndScene::Update()
 	endWorldTransform_.rotation_.y = radian * (std::numbers::pi_v<float> / 90.0f);
 	// 行列計算
 	endWorldTransform_.UpdateMatrix();
+
+	titleskydome_->Update();
 }
 
 void EndScene::Draw() {
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
 	Model::PreDraw(commandList);
+
+	titleskydome_->Draw();
 
 	if (endmodel_) {  // endmodel_がnullptrでないか確認
 		endmodel_->Draw(endWorldTransform_, viewProjection_);

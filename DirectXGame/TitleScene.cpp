@@ -3,7 +3,10 @@
 
 TitleScene::TitleScene() {}
 
-TitleScene::~TitleScene() { delete titlemodel_; }
+TitleScene::~TitleScene() { 
+	delete titlemodel_; 
+	delete titleskydome_;
+}
 
 void TitleScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
@@ -12,10 +15,10 @@ void TitleScene::Initialize() {
 	viewProjection_.Initialize();
 	Timer_ = 0.0f;
 
-	//modeltitleSkydome_ = Model::CreateFromOBJ("titlesphere", true);
-	//titleskydome_ = new TitleSkydome;
-	//titleskydome_->Initialize(modeltitleSkydome_, &viewProjection_);
-	//// デバックカメラの生成
+	modeltitleSkydome_ = Model::CreateFromOBJ("titlesphere", true);
+	titleskydome_ = new TitleSkydome;
+	titleskydome_->Initialize(modeltitleSkydome_, &viewProjection_);
+	
 }
 
 void TitleScene::Update() {
@@ -29,7 +32,7 @@ void TitleScene::Update() {
 	// 行列計算
 	titleWorldTransform_.UpdateMatrix();
 
-	/*titleskydome_->Update();*/
+	titleskydome_->Update();
 }
 
 void TitleScene::Draw() {
@@ -37,7 +40,7 @@ void TitleScene::Draw() {
 
 	Model::PreDraw(commandList);
 
-	/*titleskydome_->Draw();*/
+	titleskydome_->Draw();
 
 	titlemodel_->Draw(titleWorldTransform_, viewProjection_);
 

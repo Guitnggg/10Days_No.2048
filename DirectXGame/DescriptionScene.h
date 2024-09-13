@@ -4,6 +4,7 @@
 #include "WorldTransform.h"
 #include "DirectXCommon.h"
 #include "Input.h"
+#include "TitleSkydome.h"
 
 /// <summary>
 /// 概要説明シーン
@@ -47,5 +48,9 @@ private:
 	ViewProjection viewProjection_;
 
 	Model* descriptionmodel_ = nullptr;
+
+	//天球
+	TitleSkydome* titleskydome_ = nullptr;
+	Model* modeltitleSkydome_ = nullptr;
 };
 

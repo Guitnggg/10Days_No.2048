@@ -7,7 +7,7 @@ void TitleSkydome::Initialize(Model* model, ViewProjection* viewProjection)
 	viewProjection_ = viewProjection;
 	worldTransform_.Initialize();
 
-	worldTransform_.scale_ = { 3.0f,3.0f,3.0f };
+	worldTransform_.scale_ = { 1.0f,1.0f,1.0f };
 
 	
 };
